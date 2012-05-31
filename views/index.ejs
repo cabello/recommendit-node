@@ -230,6 +230,17 @@
         </ul>
       </div>
 
+      <div class="list">
+        <h3>Mongo stuff</h3>
+        <ul id="mongo_stuff" class="friends">
+          <% req.mongo.forEach(function(record) { %>
+            <li>
+                <%= record._id %>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+
     </section>
 
     <% } %>
