@@ -66,20 +66,6 @@
           );
         });
 
-        $('#sendRequest').click(function() {
-          FB.ui(
-            {
-              method  : 'apprequests',
-              message : $(this).attr('data-message')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
       });
     </script>
 
@@ -132,14 +118,12 @@
       <p id="picture" style="background-image: url(https://graph.facebook.com/<%= user.id %>/picture?type=normal)"></p>
 
       <div>
-        <h1>Welcome or Bem-vindo, <strong><%= user.name %></strong></h1>
+        <h1>Bem-vindo, <strong><%= user.name %></strong></h1>
         <p class="tagline">
-          This is your app
-          <a href="<%= app.link %>" target="_top"><%= app.name %></a>
+          Recomende pessoas para seus amigos.
         </p>
 
         <div id="share-app">
-          <p>Share your app:</p>
           <ul>
             <li>
               <a href="#" class="facebook-button" id="postToWall" data-url="<%= url() %>">
@@ -149,11 +133,6 @@
             <li>
               <a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<%= url() %>">
                 <span class="speech-bubble">Send Message</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Test this awesome app">
-                <span class="apprequests">Send Requests</span>
               </a>
             </li>
           </ul>
