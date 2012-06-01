@@ -162,20 +162,15 @@
       <% } else { %>
       <div>
         <h1>Welcome</h1>
-        <div class="fb-login-button" data-scope="user_likes,user_photos"></div>
+        <div class="fb-login-button" data-scope=""></div>
       </div>
       <% } %>
     </header>
 
-    <section id="get-started">
-      <p>Welcome to your Facebook app, running on <span>heroku</span>!</p>
-      <a href="https://devcenter.heroku.com/articles/facebook" target="_top" class="button">Learn How to Edit This App</a>
-    </section>
-
     <% if (user) { %>
 
     <section id="samples" class="clearfix">
-      <h1>Examples of the Facebook Graph API</h1>
+      <h1>Examples</h1>
 
       <div class="list">
         <h3>A few of your friends</h3>
@@ -191,47 +186,8 @@
         </ul>
       </div>
 
-      <div class="list inline">
-        <h3>Recent photos</h3>
-        <ul id="photos" class="photos">
-          <% req.photos.forEach(function(photo) { %>
-            <li style="background-image: url(<%= photo.picture %>>);" class="<%= photo.link %>">
-              <a href="<%= photo.link %>>" target="_top"></a>
-            </li>
-          <% }); %>
-        </ul>
-      </div>
-
       <div class="list">
-        <h3>Things you like</h3>
-        <ul id="likes" class="things">
-          <% req.likes.forEach(function(like) { %>
-            <li>
-              <a href="https://www.facebook.com/<%= like.id %>" target="_top">
-                <img src="https://graph.facebook.com/<%= like.id %>/picture?type=square" alt="<%= like.name %>">
-                <%= like.name %>
-              </a>
-            </li>
-          <% }); %>
-        </ul>
-      </div>
-
-      <div class="list">
-        <h3>Friends using this app</h3>
-        <ul id="friends_using_app" class="friends">
-          <% req.friends_using_app.forEach(function(friend) { %>
-            <li>
-              <a href="https://www.facebook.com/<%= friend.id %>>" target="_top">
-                <img src="https://graph.facebook.com/<%= friend.id %>>/picture?type=square" alt="<%= friend.name %>">
-                <%= friend.name %>
-              </a>
-            </li>
-          <% }); %>
-        </ul>
-      </div>
-
-      <div class="list">
-        <h3>Mongo stuff</h3>
+        <h3>Mongo requests documents</h3>
         <ul id="mongo_stuff" class="friends">
           <% req.mongo.forEach(function(record) { %>
             <li>
@@ -244,34 +200,6 @@
     </section>
 
     <% } %>
-
-    <section id="guides" class="clearfix">
-      <h1>Learn More About Heroku &amp; Facebook Apps</h1>
-      <ul>
-        <li>
-          <a href="https://www.heroku.com/?utm_source=facebook&utm_medium=app&utm_campaign=fb_integration" target="_top" class="icon heroku">Heroku</a>
-          <p>Learn more about <a href="https://www.heroku.com/?utm_source=facebook&utm_medium=app&utm_campaign=fb_integration" target="_top">Heroku</a>, or read developer docs in the Heroku <a href="https://devcenter.heroku.com/" target="_top">Dev Center</a>.</p>
-        </li>
-        <li>
-          <a href="https://developers.facebook.com/docs/guides/web/" target="_top" class="icon websites">Websites</a>
-          <p>
-            Drive growth and engagement on your site with
-            Facebook Login and Social Plugins.
-          </p>
-        </li>
-        <li>
-          <a href="https://developers.facebook.com/docs/guides/mobile/" target="_top" class="icon mobile-apps">Mobile Apps</a>
-          <p>
-            Integrate with our core experience by building apps
-            that operate within Facebook.
-          </p>
-        </li>
-        <li>
-          <a href="https://developers.facebook.com/docs/guides/canvas/" target="_top" class="icon apps-on-facebook">Apps on Facebook</a>
-          <p>Let users find and connect to their friends in mobile apps and games.</p>
-        </li>
-      </ul>
-    </section>
   </body>
 </html>
 

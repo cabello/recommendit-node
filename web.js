@@ -14,7 +14,7 @@ var app = express.createServer(
   require('faceplate').middleware({
     app_id: process.env.FACEBOOK_APP_ID,
     secret: process.env.FACEBOOK_SECRET,
-    scope:  'user_likes,user_photos,user_photo_video_tags'
+    scope:  ''
   })
 );
 
@@ -73,33 +73,13 @@ function handle_facebook_request(req, res) {
         });
       },
       function(cb) {
-        // query 16 photos and send them to the socket for this socket id
-        req.facebook.get('/me/photos', { limit: 16 }, function(photos) {
-          req.photos = photos;
-          cb();
-        });
-      },
-      function(cb) {
-        // query 4 likes and send them to the socket for this socket id
-        req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
-          req.likes = likes;
-          cb();
-        });
-      },
-      function(cb) {
-        // use fql to get a list of my friends that are using this app
-        req.facebook.fql('SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1', function(result) {
-          req.friends_using_app = result;
-          cb();
-        });
-      },
-      function(cb) {
         // Connect to a mongo database via URI
         // With the MongoLab addon the MONGOLAB_URI config variable is added to your
         // Heroku environment.  It can be accessed as process.env.MONGOLAB_URI
         mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
           if (error) {
             console.log('Error connection to MongoLab');
+            cb();
             return;
           }
 
@@ -112,11 +92,13 @@ function handle_facebook_request(req, res) {
           db.collection('requests', function(err, collection) {
             if (err) {
               console.log('Error collection');
+              cb();
               return;
             }
             collection.insert(req.query, function(err, result) {
               if (err) {
                 console.log('Error insert');
+                cb();
                 return;
               }
 
